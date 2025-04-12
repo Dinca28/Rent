@@ -1,0 +1,20 @@
+﻿@model RentACars.Models.Car
+
+@{
+    ViewData["Title"] = "Car Details";
+}
+
+<h1>@Model.Brand @Model.Model</h1>
+
+<div class="card mb-4">
+    <img src="@Model.ImageUrl" class="card-img-top" alt="@Model.Brand @Model.Model">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Brand @Model.Model (@Model.Year)</h5>
+        <p class="card-text">Price per day: @Model.PricePerDay$</p>
+        <p class="card-text">Location: @Model.Location</p>
+        <p class="card-text">Description:</p>
+        <a href="#" class="btn btn-primary">Rent Now</a>
+    </div>
+</div>
+
+<a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Back to Home</a>

@@ -1,0 +1,75 @@
+﻿@model List<RentACars.Models.Car>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Search Car</h1>
+
+<a href="@Url.Action("PostCar", "Cars")" class="btn btn-primary">Post a New Car</a>
+
+<form asp-controller="Cars" asp-action="Search" method="get">
+    <div class="container row g-3">
+        <div class="col-md-3">
+            <input type="text" id="pickupLocation" list="locationsList" />
+            <datalist id="locationsList"></datalist>
+        </div>
+        <div class="col-md-2">
+            <input type="datetime-local" name="pickupDate" class="form-control" required />
+        </div>
+        <div class="col-md-2">
+            <input type="datetime-local" name="returnDate" class="form-control" required />
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+    </div>
+</form>
+
+<h2 class="text-center mb-4">Featured Cars</h2>
+
+<div class="row">
+    @foreach (var car in Model)
+    {
+        <div class="col-md-3">
+            <div class="card mb-4 shadow-sm">
+                <!-- Зареждаме снимка от wwwroot/images -->
+                <img src="@car.ImageUrl" class="card-img-top" alt="@car.Brand @car.Model">
+
+
+                <div class="card-body">
+                    <!-- Заглавие с марка и модел -->
+                    <h5 class="card-title">@car.Brand @car.Model</h5>
+
+                    <!-- Цена на ден -->
+                    <p class="card-text">From @car.PricePerDay$ / Day</p>
+
+                    <!-- Бутон за наемане -->
+                    <a href="@Url.Action("Details", "Cars", new { id = car.Id })" class="btn btn-primary">Rent Now</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+
+    <script>
+        $(function () {
+            $("#pickupLocation").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("GetLocations", "Home")',
+                        data: { term: request.term },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 1    
+            });
+        });
+    </script>
+}

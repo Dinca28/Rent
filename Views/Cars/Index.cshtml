@@ -1,0 +1,33 @@
+﻿@model IEnumerable<RentACars.Models.Car>
+
+<h2>All Cars</h2>
+
+<a class="btn btn-success" href="@Url.Action("PostCar", "Cars")">Post New Car</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Price Per Day</th>
+            <th>Location</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.Brand</td>
+                <td>@car.Model</td>
+                <td>@car.Year</td>
+                <td>@car.PricePerDay</td>
+                <td>@car.Location</td>
+                <td>
+                    <img src="@Url.Content("~/images/" + car.ImageUrl)" width="100" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

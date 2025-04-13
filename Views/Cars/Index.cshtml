@@ -13,6 +13,7 @@
             <th>Price Per Day</th>
             <th>Location</th>
             <th>Image</th>
+            <th>Actions</th> <!-- Добавена колона за бутоните -->
         </tr>
     </thead>
     <tbody>
@@ -26,6 +27,16 @@
                 <td>@car.Location</td>
                 <td>
                     <img src="@Url.Content("~" + car.ImageUrl)" width="100" />
+                </td>
+                <td>
+                    <!-- Бутон за детайли -->
+                    <a href="@Url.Action("Details", "Cars", new { id = car.Id })" class="btn btn-info">Details</a>
+
+                    <!-- Бутон за редактиране -->
+                    <a href="@Url.Action("Edit", "Cars", new { id = car.Id })" class="btn btn-warning">Edit</a>
+
+                    <!-- Бутон за изтриване -->
+                    <a href="@Url.Action("Delete", "Cars", new { id = car.Id })" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
